@@ -28,6 +28,16 @@
   color: #61dafb;
 }
 
+.NexupFrontendChallenge {
+  padding: 16px;
+}
+
+.NexupFrontendChallenge h1 {
+  margin: 0 0 24px 0;
+  padding-left: 16px;
+  text-align: left;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

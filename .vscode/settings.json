@@ -1,0 +1,18 @@
+{
+    "files.eol": "\n",
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+    "editor.formatOnSave": true,
+    "[typescript]": {
+        "files.eol": "\n"
+    },
+    "[typescriptreact]": {
+        "files.eol": "\n"
+    },
+    "[javascript]": {
+        "files.eol": "\n"
+    },
+    "[css]": {
+        "files.eol": "\n"
+    }
+}
