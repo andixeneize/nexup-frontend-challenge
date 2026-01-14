@@ -2,6 +2,8 @@
 
 Aplicación React + TypeScript para mostrar y filtrar una lista de productos con filtro por categoría y búsqueda.
 
+🌐 **Demo en vivo**: [https://nexup-frontend-challenge.vercel.app/](https://nexup-frontend-challenge.vercel.app/)
+
 ## 🚀 Características
 
 ### Requisitos Principales
