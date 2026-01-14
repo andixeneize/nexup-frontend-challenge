@@ -1,0 +1,33 @@
+.search-filter {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+}
+
+.search-filter-label {
+    font-weight: 600;
+    font-size: 16px;
+    color: #333333;
+}
+
+.search-filter-input {
+    flex: 1;
+    max-width: 400px;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background-color: #ffffff;
+    color: #333333;
+}
+
+.search-filter-input:focus {
+    outline: none;
+    border-color: #87ceeb;
+    box-shadow: 0 0 0 2px rgba(135, 206, 235, 0.2);
+}
+
+.search-filter-input::placeholder {
+    color: #999999;
+}
