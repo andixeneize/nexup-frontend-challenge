@@ -15,7 +15,6 @@ export const ProductManager: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       const fetchedProducts = await getProductList();
-      console.log('Products fetched from API:', fetchedProducts);
       setProducts(fetchedProducts);
     };
 
