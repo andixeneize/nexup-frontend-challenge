@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { ProductList } from './ProductList';
 import { CategoryFilter } from './CategoryFilter';
+import { SearchFilter } from './SearchFilter';
 import { getProductList } from '../api/products';
 import { Product } from '../models/Product';
 import { ProductCategory } from '../models/ProductCategory';
@@ -11,27 +12,58 @@ export const ProductManager: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedCategory, setSelectedCategory] =
     useState<string>(ALL_CATEGORIES);
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const fetchedProducts = await getProductList();
-      setProducts(fetchedProducts);
+      try {
+        setIsLoading(true);
+        setError(null);
+        const fetchedProducts = await getProductList();
+        setProducts(fetchedProducts);
+      } catch (err) {
+        setError(
+          err instanceof Error
+            ? err.message
+            : 'Failed to load products. Please try again later.',
+        );
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     fetchProducts();
   }, []);
 
   const filteredProducts = useMemo(() => {
-    if (selectedCategory === ALL_CATEGORIES) {
-      return products;
+    let filtered = products;
+
+    // Filter by category
+    if (selectedCategory !== ALL_CATEGORIES) {
+      filtered = filtered.filter(
+        (product) => product.category === (selectedCategory as ProductCategory),
+      );
     }
-    return products.filter(
-      (product) => product.category === (selectedCategory as ProductCategory),
-    );
-  }, [products, selectedCategory]);
+
+    // Filter by search query
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase().trim();
+      filtered = filtered.filter((product) =>
+        product.name.toLowerCase().includes(query),
+      );
+    }
+
+    return filtered;
+  }, [products, selectedCategory, searchQuery]);
 
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
+  };
+
+  const handleSearchChange = (query: string) => {
+    setSearchQuery(query);
   };
 
   return (
@@ -40,7 +72,15 @@ export const ProductManager: React.FC = () => {
         selectedCategory={selectedCategory}
         onCategoryChange={handleCategoryChange}
       />
-      <ProductList productList={filteredProducts} />
+      <SearchFilter
+        searchQuery={searchQuery}
+        onSearchChange={handleSearchChange}
+      />
+      <ProductList
+        productList={filteredProducts}
+        isLoading={isLoading}
+        error={error}
+      />
     </div>
   );
 };
